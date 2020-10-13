@@ -6,9 +6,6 @@ let money = 1000,
   period = 6,
   budgetDay;
 
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
 console.log(addExpenses.length);
 console.log("Период равен " + period + " месяцев");
 console.log("Цель заработать " + mission + " долларов");
@@ -25,7 +22,7 @@ if (money !== money) {
   money = +prompt("Какой ваш месячный доход?", "1000");
 }
 
-addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "Кварплата, проездной, кредит");
+addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "Кварплата, проездной, кредит").split(', ');
 
 deposit = confirm("Есть ли у вас депозит в банке?");
 
@@ -34,19 +31,45 @@ let amount1 = +prompt("Во сколько это обойдется?", "100");
 let expenses2 = prompt("Введите обязательную статью расходов номер 2?", "Интернет");
 let amount2 = +prompt("Во сколько это обойдется?", "50");
 
-let budgetMonth = money - (amount1 + amount2);
-console.log("Бюджет на месяц", budgetMonth);
+function getExpensesMonth(a, b) {
+  return (a + b);
+}
 
-period = Math.ceil(mission / budgetMonth);
+function getAccumulatedMonth(budget, expenses) {
+  return (budget - expenses);
+}
+
+function getTargetMonth(mission, accumulated) {
+  return Math.ceil(mission / accumulated);
+}
+
+let showTypeOf = function(data) {
+  console.log(data, typeof data);
+};
+  
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+
+let sumExpenses = getExpensesMonth(amount1, amount2);
+console.log("Ваши обязательные расходы за месяц", sumExpenses);
+console.log("Ваши возможные расходы", addExpenses);
+let accumulatedMonth = getAccumulatedMonth(money, sumExpenses);
+console.log("Бюджет на месяц", accumulatedMonth);
+
+period = getTargetMonth(mission, accumulatedMonth);
 console.log("Ваша цель будет достигнута через " + period + " месяцев");
 
-budgetDay = Math.floor(budgetMonth / 30);
+budgetDay = Math.floor(accumulatedMonth / 30);
 console.log("Ваш бюджет на день", budgetDay);
 
-if (budgetDay >= 1200) {
-  console.log("У вас высокий уровень дохода");
-} else if(budgetDay < 1200 && budgetDay >=600) {
-  console.log("У вас средний уровень дохода");
-} else if(budgetDay < 600 && budgetDay >=0) {
-  console.log("К сожалению у вас уровень дохода ниже среднего");
-}
+let getStatusIncome = function() {
+  if (budgetDay >= 1200) {
+    return "У вас высокий уровень дохода";
+  } else if(budgetDay < 1200 && budgetDay >=600) {
+    return "У вас средний уровень дохода";
+  } else if(budgetDay < 600 && budgetDay >=0) {
+    return "К сожалению у вас уровень дохода ниже среднего";
+  }
+};
+console.log(getStatusIncome());
