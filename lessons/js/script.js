@@ -248,7 +248,7 @@ class AppData {
       this.reset();
       plusIncome.style.display = '';
       plusExpenses.style.display = '';
-       inputTextData = document.querySelector('.data').querySelectorAll('input[type="text"]');
+      const inputTextData = document.querySelector('.data').querySelectorAll('input[type="text"]');
       inputTextData.forEach( (item) => {
         item.disabled = false;
         item.value = null;
