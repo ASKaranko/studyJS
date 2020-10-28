@@ -62,6 +62,7 @@ class AppData {
     this.budget = 0;
     this.expenses = {};
     this.income = {};
+    this.incomeMonth = 0;
     this.expensesMonth = 0;
     this.addExpenses = [];
     this.addIncome = [];
@@ -245,7 +246,9 @@ class AppData {
     periodSelect.addEventListener('input', this.calcSavedMoney);
     cancelBtn.addEventListener('click', () => {
       this.reset();
-      const inputTextData = document.querySelector('.data').querySelectorAll('input[type="text"]');
+      plusIncome.style.display = '';
+      plusExpenses.style.display = '';
+       inputTextData = document.querySelector('.data').querySelectorAll('input[type="text"]');
       inputTextData.forEach( (item) => {
         item.disabled = false;
         item.value = null;
